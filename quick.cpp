@@ -27,11 +27,11 @@ private:
     }
     
     int partition(vector<int>& array, int low, int high) {
-        int pivot = array[high]; // Pilih elemen terakhir sebagai pivot
+        int pivot = array[high]; 
         cout << "\n--- Partisi untuk rentang [" << low << ".." << high << "] ---" << endl;
         cout << "Pivot dipilih: " << pivot << " (index " << high << ")" << endl;
         
-        int i = low - 1; // Index untuk elemen yang lebih kecil dari pivot
+        int i = low - 1; 
         
         for (int j = low; j < high; j++) {
             comparisons++;
@@ -50,7 +50,6 @@ private:
             }
         }
         
-        // Tempatkan pivot di posisi yang benar
         cout << "Tempatkan pivot " << pivot << " di posisi " << (i + 1) << endl;
         swap(array[i + 1], array[high]);
         swaps++;
@@ -67,12 +66,10 @@ private:
             cout << "\n" << indent << "=== DIVIDE: Mengurutkan [" << low << ".." << high << "] ===" << endl;
             printArray(array, low, high, indent + "Array saat ini");
             
-            // Partisi array dan dapatkan index pivot
             int pivotIndex = partition(array, low, high);
             
             cout << "\n" << indent << "=== CONQUER: Rekursi pada sub-array ===" << endl;
             
-            // Rekursi pada sub-array kiri
             if (low < pivotIndex - 1) {
                 cout << indent << "Rekursi kiri: [" << low << ".." << (pivotIndex - 1) << "]" << endl;
                 quickSort(array, low, pivotIndex - 1, depth + 1);
@@ -80,7 +77,6 @@ private:
                 cout << indent << "Sub-array kiri sudah terurut atau kosong" << endl;
             }
             
-            // Rekursi pada sub-array kanan
             if (pivotIndex + 1 < high) {
                 cout << indent << "Rekursi kanan: [" << (pivotIndex + 1) << ".." << high << "]" << endl;
                 quickSort(array, pivotIndex + 1, high, depth + 1);
@@ -130,7 +126,6 @@ public:
 };
 
 int main() {
-    // Data berdasarkan digit NIM 23533780 (0 menjadi 11)
     vector<int> data = {2, 3, 5, 3, 3, 7, 8, 11};
     
     QuickSort sorter;
