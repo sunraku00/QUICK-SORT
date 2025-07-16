@@ -28,74 +28,54 @@ private:
     
     int partition(vector<int>& array, int low, int high) {
         int pivot = array[high]; 
-        cout << "\n--- Partisi untuk rentang [" << low << ".." << high << "] ---" << endl;
-        cout << "Pivot dipilih: " << pivot << " (index " << high << ")" << endl;
         
         int i = low - 1; 
         
         for (int j = low; j < high; j++) {
             comparisons++;
-            cout << "Membandingkan " << array[j] << " dengan pivot " << pivot << ": ";
             
             if (array[j] <= pivot) {
-                cout << array[j] << " <= " << pivot << " (pindah ke kiri)" << endl;
                 i++;
                 if (i != j) {
-                    cout << "  Tukar " << array[i] << " dengan " << array[j] << endl;
                     swap(array[i], array[j]);
                     swaps++;
                 }
-            } else {
-                cout << array[j] << " > " << pivot << " (tetap di kanan)" << endl;
-            }
+            } 
         }
         
-        cout << "Tempatkan pivot " << pivot << " di posisi " << (i + 1) << endl;
         swap(array[i + 1], array[high]);
         swaps++;
         
         printArray(array, low, high, "Setelah partisi");
-        cout << "Pivot " << pivot << " berada di index " << (i + 1) << endl;
-        
         return i + 1;
     }
     
     void quickSort(vector<int>& array, int low, int high, int depth) {
         if (low < high) {
             string indent(depth * 2, ' ');
-            cout << "\n" << indent << "=== DIVIDE: Mengurutkan [" << low << ".." << high << "] ===" << endl;
-            printArray(array, low, high, indent + "Array saat ini");
             
             int pivotIndex = partition(array, low, high);
             
-            cout << "\n" << indent << "=== CONQUER: Rekursi pada sub-array ===" << endl;
-            
             if (low < pivotIndex - 1) {
-                cout << indent << "Rekursi kiri: [" << low << ".." << (pivotIndex - 1) << "]" << endl;
                 quickSort(array, low, pivotIndex - 1, depth + 1);
-            } else {
-                cout << indent << "Sub-array kiri sudah terurut atau kosong" << endl;
-            }
+            } 
             
             if (pivotIndex + 1 < high) {
-                cout << indent << "Rekursi kanan: [" << (pivotIndex + 1) << ".." << high << "]" << endl;
                 quickSort(array, pivotIndex + 1, high, depth + 1);
-            } else {
-                cout << indent << "Sub-array kanan sudah terurut atau kosong" << endl;
-            }
+            } 
         }
     }
     
 public:
     QuickSort() : comparisons(0), swaps(0) {}
     
-    void sort(vector<int> inputArray) {
+    void sort(vector<int> inputArray, string nim) {
         arr = inputArray;
         comparisons = 0;
         swaps = 0;
         
         cout << "=== QUICK SORT MENGGUNAKAN DIVIDE AND CONQUER ===" << endl;
-        cout << "NIM: 23533780 (angka 0 diganti dengan 11)" << endl;
+        cout << "NIM: " << nim << " (angka 0 diganti dengan 11)" << endl;
         cout << "Data yang akan diurutkan berdasarkan digit NIM: 2, 3, 5, 3, 3, 7, 8, 11" << endl;
         
         printFullArray(arr, "\nArray awal");
@@ -126,10 +106,14 @@ public:
 };
 
 int main() {
+    string nim;
+    cout << "Masukkan NIM Anda: ";
+    cin >> nim;
+    
     vector<int> data = {2, 3, 5, 3, 3, 7, 8, 11};
     
     QuickSort sorter;
-    sorter.sort(data);
+    sorter.sort(data, nim);
     
     return 0;
 }
